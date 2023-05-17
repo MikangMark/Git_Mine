@@ -27,7 +27,7 @@ public class MousePoint : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         // UI 요소의 위치와 마우스 클릭 이벤트가 발생한 위치 사이의 차이를 구합니다.
         clickOffset = (Vector2)rectTransform.localPosition - localMousePosition;
         canvasGroup.blocksRaycasts = false;
-        
+        gameObject.transform.parent = gameObject.transform.parent.parent.parent;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -35,15 +35,14 @@ public class MousePoint : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         
         // 마우스 드래그 이벤트가 발생한 위치를 UI 요소의 부모 객체의 좌표계로 변환합니다.
         RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform.parent.GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out Vector2 localMousePosition);
-        Transform[] hierarchy = GetComponentsInParent<Transform>();
-        foreach (Transform t in hierarchy)
-        {
-            t.SetAsLastSibling();
-        }
+        //Transform[] hierarchy = GetComponentsInParent<Transform>();
+        //foreach (Transform t in hierarchy)
+        //{
+        //    t.SetAsLastSibling();
+        //}
 
         // UI 요소의 위치를 마우스 드래그 이벤트가 발생한 위치로 이동합니다.
         rectTransform.localPosition = localMousePosition + clickOffset;
-        
     }
 
     public void OnPointerUp(PointerEventData eventData)
