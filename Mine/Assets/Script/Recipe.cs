@@ -2,46 +2,41 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Recipe : MonoBehaviour
 {
-    public List<List<int>> table_9;
-    public List<List<int>> table_4;
+    public List<Item> needItemList;
+    public List<int> table_9;
+    public List<int> table_4;
+    public Item createdItem;
 
     // Start is called before the first frame update
+    public Recipe()
+    {
+        needItemList = new List<Item>();
+        table_9 = new List<int>();
+        
+        table_4 = new List<int>();
+        for(int i = 0; i < 9; i++)
+        {
+            if (i < 4)
+            {
+                table_4.Add(-1);
+            }
+            table_9.Add(-1);
+        }
+        createdItem = null;
+    }
     void Start()
     {
-        table_9 = new List<List<int>>();
-        for(int i = 0; i < 3; i++)
-        {
-            table_9[i] = new List<int>();
-            for(int j = 0; j < 3; j++)
-            {
-                table_9[i].Add(-1);
-            }
-        }
-        table_4 = new List<List<int>>();
-        for (int i = 0; i < 2; i++)
-        {
-            table_4[i] = new List<int>();
-            for (int j = 0; j < 2; j++)
-            {
-                table_4[i].Add(-1);
-            }
-        }
+        
     }
     public void SetTable_4(int _index, int _itemCode)
     {
-        int row = _index / 2;
-        int col = _index % 2;
-
-        table_4[row][col] = _itemCode;
+        table_4[_index] = _itemCode;
     }
     public void SetTable_9(int _index, int _itemCode)
     {
-        int row = _index / 3;
-        int col = _index % 3;
-        table_9[row][col] = _itemCode;
+        table_9[_index] = _itemCode;
     }
 
     public override bool Equals(object obj)
@@ -61,22 +56,15 @@ public class Recipe : MonoBehaviour
 
         return true;
     }
-
-    private bool CompareMatrix(List<List<int>> matrixA, List<List<int>> matrixB)
+    private bool CompareMatrix(List<int> matrixA, List<int> matrixB)
     {
         if (matrixA.Count != matrixB.Count)
             return false;
 
         for (int i = 0; i < matrixA.Count; i++)
         {
-            if (matrixA[i].Count != matrixB[i].Count)
+            if (matrixA[i] != matrixB[i])
                 return false;
-
-            for (int j = 0; j < matrixA[i].Count; j++)
-            {
-                if (matrixA[i][j] != matrixB[i][j])
-                    return false;
-            }
         }
 
         return true;
@@ -95,14 +83,11 @@ public class Recipe : MonoBehaviour
         return hash;
     }
 
-    private int HashMatrix(List<List<int>> matrix, int hash)
+    private int HashMatrix(List<int> matrix, int hash)
     {
         foreach (var row in matrix)
         {
-            foreach (var element in row)
-            {
-                hash = hash * 23 + element.GetHashCode();
-            }
+            hash = hash * 23 + matrix.GetHashCode();
         }
 
         return hash;

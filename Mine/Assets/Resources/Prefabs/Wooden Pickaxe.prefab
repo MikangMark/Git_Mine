@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2969299215399968663}
   - component: {fileID: 5389991143709393565}
   m_Layer: 0
-  m_Name: Web
+  m_Name: Wooden Pickaxe
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -768688722, guid: 8bb6037d5d1fd9549bc0bd48fad19cfa, type: 3}
+  m_Sprite: {fileID: -1761431028, guid: 8bb6037d5d1fd9549bc0bd48fad19cfa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -164,7 +164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc5e9488bdb93cc47a27d1b1417fcebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemInfo:
-    itemCord: 287
-    itemName: Web
-    itemCount: 0
+  itemCord: 270
+  itemName: Wooden Pickaxe
+  itemCount: 0
