@@ -19,11 +19,13 @@ public class Table2by2 : MonoBehaviour
     GameObject createdItemPos;//이오브젝트하위에 아이템생성
     [SerializeField]
     GameObject createdItem;
-    [SerializeField]
     Recipe activeRecipe;//현제 보여주고있는 레시피
+
+    bool changeRecipe;
 
     private void Start()
     {
+        changeRecipe = false;
         onTableItemCode = new List<int>();
         notNullItemCodeList = new List<int>();
         activeRecipe = new Recipe();
@@ -65,8 +67,18 @@ public class Table2by2 : MonoBehaviour
                     notNullItemCodeList.Add(onTableItemCode[i]);
                 }
             }
+            Debug.Log("1");
+            RecipeCheck();
         }
-        RecipeCheck();
+        else
+        {
+            if (createdItem != null)
+            {
+                Debug.Log("2");
+                Destroy(createdItem);
+            }
+        }
+        
     }
     bool CheckSameOnTableItemCode(List<int> _list)
     {
@@ -82,24 +94,21 @@ public class Table2by2 : MonoBehaviour
     void RecipeCheck()
     {
         List<Recipe> temp = ConbinationManager.Instance.GetRecipeListValue(notNullItemCodeList);
-        Recipe tempRecipe = null;
         if (temp == null)
         {
             return;
         }
-        CheckChangedRecipe(tempRecipe);
-        for (int i=0;i< temp.Count; i++)
+        for (int i = 0; i < temp.Count; i++)//한아이템의 레시피 리스트
         {
-            for(int j = 0; j < onTableItemCode.Count; j++)
+            for (int j = 0; j < onTableItemCode.Count; j++)//레시피 리스트에서 하나의 레시피검사
             {
-                if(temp[i].table_4[j] != onTableItemCode[j])
+                if (temp[i].table_4[j] != onTableItemCode[j])
                 {
-                    
                     break;
                 }
                 if (j == 3)
                 {
-                    tempRecipe = activeRecipe = temp[i];
+                    activeRecipe = temp[i];
                 }
             }
         }
@@ -107,11 +116,5 @@ public class Table2by2 : MonoBehaviour
         {
             createdItem = Instantiate(ItemManager.Instance.SearchObjByCode(activeRecipe.createdItem.itemCord), createdItemPos.transform);
         }
-        
-    }
-    bool CheckChangedRecipe(Recipe _recipe)
-    {
-
-        return true;
     }
 }
