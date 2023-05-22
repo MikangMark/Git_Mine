@@ -64,7 +64,8 @@ public class ConbinationManager : Singleton<ConbinationManager>
         List<int> needItemCode = new List<int>();
         needItem.Add(Instantiate(ItemManager.Instance.SearchItemByCode(17)));
         needItemCode.Add(17);
-        Item createdItem = ItemManager.Instance.SearchItemByCode(5);
+        Item createdItem;
+        createdItem = Instantiate(ItemManager.Instance.SearchItemByCode(5));
         for (int i = 0; i < 9; i++)
         {
             Recipe temp = new Recipe();
@@ -75,7 +76,7 @@ public class ConbinationManager : Singleton<ConbinationManager>
                 temp.SetTable_4(i, needItem[0].itemCord);
             }
             temp.SetTable_9(i, needItem[0].itemCord);
-            temp.createdItem = ItemManager.Instance.SearchItemByCode(createdItem.itemCord);
+            temp.createdItem = createdItem;
             temp.createdItem.itemCount = 4;
             tempList.Add(temp);
         }

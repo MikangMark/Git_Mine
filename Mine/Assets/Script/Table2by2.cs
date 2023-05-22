@@ -7,8 +7,7 @@ public class Table2by2 : MonoBehaviour
     [SerializeField]
     List<GameObject> table_2by2;
 
-    [SerializeField]
-    List<GameObject> onTableItem;
+    public List<GameObject> onTableItem;
 
     [SerializeField]
     List<int> onTableItemCode;
@@ -83,24 +82,25 @@ public class Table2by2 : MonoBehaviour
     void RecipeCheck()
     {
         List<Recipe> temp = ConbinationManager.Instance.GetRecipeListValue(notNullItemCodeList);
+        Recipe tempRecipe = null;
         if (temp == null)
         {
             return;
         }
+        CheckChangedRecipe(tempRecipe);
         for (int i=0;i< temp.Count; i++)
         {
-            if (temp[i].table_4 == onTableItemCode)
+            for(int j = 0; j < onTableItemCode.Count; j++)
             {
-                activeRecipe = temp[i];
-                break;
-            }
-            if (i == temp.Count - 1)
-            {
-                if (createdItemPos.transform.childCount > 0)
+                if(temp[i].table_4[j] != onTableItemCode[j])
                 {
-                    Destroy(createdItem);
+                    
+                    break;
                 }
-                return;
+                if (j == 3)
+                {
+                    tempRecipe = activeRecipe = temp[i];
+                }
             }
         }
         if (createdItemPos.transform.childCount < 1)
@@ -108,5 +108,10 @@ public class Table2by2 : MonoBehaviour
             createdItem = Instantiate(ItemManager.Instance.SearchObjByCode(activeRecipe.createdItem.itemCord), createdItemPos.transform);
         }
         
+    }
+    bool CheckChangedRecipe(Recipe _recipe)
+    {
+
+        return true;
     }
 }
