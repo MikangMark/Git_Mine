@@ -5,7 +5,7 @@ using UnityEngine;
 public class Table3by3 : MonoBehaviour
 {
     [SerializeField]
-    List<GameObject> table_3by3;
+    List<GameObject> table_3by3;// 3x3 테이블의 슬롯을 나타내는 게임 오브젝트 리스트
 
     public List<GameObject> onTableItem;
 
@@ -21,11 +21,10 @@ public class Table3by3 : MonoBehaviour
     GameObject createdItem;
     Recipe activeRecipe;//현제 보여주고있는 레시피
 
-    bool changeRecipe;
-
+    public bool onRecipe;
     private void Start()
     {
-        changeRecipe = false;
+        onRecipe = false;
         onTableItemCode = new List<int>();
         notNullItemCodeList = new List<int>();
         activeRecipe = new Recipe();
@@ -69,6 +68,23 @@ public class Table3by3 : MonoBehaviour
             }
             Debug.Log("1");
             RecipeCheck();
+            
+        }
+        if (onRecipe)
+        {
+            if (createdItemPos.transform.childCount == 0)
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (onTableItem[i] != null)
+                    {
+                        Destroy(onTableItem[i]);
+                    }
+                    onTableItemCode[i] = -1;
+                }
+                onRecipe = false;
+            }
+            
         }
     }
     void RecipeCheck()
@@ -79,6 +95,7 @@ public class Table3by3 : MonoBehaviour
         {
             if (createdItemPos.transform.childCount > 0)
             {
+                onRecipe = false;
                 Destroy(createdItem);
             }
             return;
@@ -92,6 +109,7 @@ public class Table3by3 : MonoBehaviour
 
                 if (createdItemPos.transform.childCount < 1)
                 {
+                    onRecipe = true;
                     createdItem = Instantiate(ItemManager.Instance.SearchObjByCode(activeRecipe.createdItem.itemCord), createdItemPos.transform);
                 }
                 break;

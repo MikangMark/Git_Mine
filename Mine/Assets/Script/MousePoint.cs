@@ -59,7 +59,11 @@ public class MousePoint : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         {
             gameObject.transform.parent = savePos;
         }
-        
+        if(gameObject.transform.parent.childCount != 1)
+        {
+            Debug.Log(gameObject.transform.parent.childCount);
+            gameObject.transform.parent = savePos;
+        }
         
     }
 }

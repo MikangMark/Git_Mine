@@ -11,10 +11,10 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inventoryPnl.SetActive(false);
+        inventoryPnl.SetActive(true);
         creatTabelPnl.SetActive(false);
     }
-    public void OnClickInventoryBtn()
+    public void OnClickChangeBtn()
     {
         if (inventoryPnl.activeSelf)
         {
@@ -24,10 +24,6 @@ public class UIManager : MonoBehaviour
         {
             inventoryPnl.SetActive(true);
         }
-    }
-
-    public void OnClickCreatTableBtn()
-    {
         if (creatTabelPnl.activeSelf)
         {
             creatTabelPnl.SetActive(false);
@@ -37,5 +33,4 @@ public class UIManager : MonoBehaviour
             creatTabelPnl.SetActive(true);
         }
     }
-
 }

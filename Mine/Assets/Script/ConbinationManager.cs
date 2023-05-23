@@ -23,13 +23,11 @@ public class ConbinationManager : Singleton<ConbinationManager>
     {
         Plank();
         Stick();
+        FishingRod();
+        CarrotFishingRod();
+        WoodenPickaxe();
+        WoodenShovel();
         keys = recipeList.Keys.ToList();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
     public List<Recipe> GetRecipeListValue(List<int> _key)
     {
@@ -48,6 +46,8 @@ public class ConbinationManager : Singleton<ConbinationManager>
         {
             return false;
         }
+        original.Sort();
+        _key.Sort();
         for(int i = 0; i < original.Count; i++)
         {
             if(original[i] != _key[i])
@@ -134,6 +134,96 @@ public class ConbinationManager : Singleton<ConbinationManager>
         temp.SetTable_9(6, needItem[0].itemCord);
         temp.SetTable_9(5, needItem[1].itemCord);
         temp.SetTable_9(8, needItem[1].itemCord);
+        temp.createdItem = createdItem;
+        temp.createdItem.itemCount = 1;
+        tempList.Add(temp);
+        recipeList.Add(needItemCode, tempList);
     }
+    void CarrotFishingRod()
+    {
+        List<Recipe> tempList = new List<Recipe>();
+        List<Item> needItem = new List<Item>();
+        List<int> needItemCode = new List<int>();
+        needItem.Add(Instantiate(ItemManager.Instance.SearchItemByCode(346)));
+        needItem.Add(Instantiate(ItemManager.Instance.SearchItemByCode(391)));
+        needItemCode.Add(346);
+        needItemCode.Add(391);
+        Item createdItem;
+        createdItem = Instantiate(ItemManager.Instance.SearchItemByCode(398));
+        
+        for(int i = 0; i < 5; i++)
+        {
+            if (i == 2)
+            {
+                continue;
+            }
+            Recipe temp = new Recipe();
+            temp.needItemList.Add(needItem[0]);
+            temp.needItemList.Add(needItem[1]);
+            if (i == 0)
+            {
+                temp.SetTable_4(i, needItem[0].itemCord);
+                temp.SetTable_4(i + 3, needItem[1].itemCord);
+            }
+            temp.SetTable_9(i, needItem[0].itemCord);
+            temp.SetTable_9(i + 4, needItem[1].itemCord);
+            temp.createdItem = createdItem;
+            temp.createdItem.itemCount = 1;
+            tempList.Add(temp);
+            //04 15 37 48 0134 4578
+        }
+        recipeList.Add(needItemCode, tempList);
+    }
+    void WoodenPickaxe()
+    {
+        List<Recipe> tempList = new List<Recipe>();
+        List<Item> needItem = new List<Item>();
+        List<int> needItemCode = new List<int>();
+        needItem.Add(Instantiate(ItemManager.Instance.SearchItemByCode(5)));
+        needItem.Add(Instantiate(ItemManager.Instance.SearchItemByCode(280)));
+        needItemCode.Add(5);
+        needItemCode.Add(5);
+        needItemCode.Add(5);
+        needItemCode.Add(280);
+        needItemCode.Add(280);
+        Item createdItem;
+        createdItem = Instantiate(ItemManager.Instance.SearchItemByCode(270));
+        Recipe temp = new Recipe();
+        temp.needItemList.Add(needItem[0]);
+        temp.needItemList.Add(needItem[1]);
+        temp.SetTable_9(0, needItem[0].itemCord);
+        temp.SetTable_9(1, needItem[0].itemCord);
+        temp.SetTable_9(2, needItem[0].itemCord);
+        temp.SetTable_9(4, needItem[1].itemCord);
+        temp.SetTable_9(7, needItem[1].itemCord);
+        temp.createdItem = createdItem;
+        temp.createdItem.itemCount = 1;
+        tempList.Add(temp);
+        recipeList.Add(needItemCode, tempList);
+    }
+    void WoodenShovel()
+    {
+        List<Recipe> tempList = new List<Recipe>();
+        List<Item> needItem = new List<Item>();
+        List<int> needItemCode = new List<int>();
+        needItem.Add(Instantiate(ItemManager.Instance.SearchItemByCode(5)));
+        needItem.Add(Instantiate(ItemManager.Instance.SearchItemByCode(280)));
+        needItemCode.Add(5);
+        needItemCode.Add(280);
+        needItemCode.Add(280);
+        Item createdItem;
+        createdItem = Instantiate(ItemManager.Instance.SearchItemByCode(269));
+        Recipe temp = new Recipe();
+        temp.needItemList.Add(needItem[0]);
+        temp.needItemList.Add(needItem[1]);
+        temp.SetTable_9(1, needItem[0].itemCord);
+        temp.SetTable_9(4, needItem[1].itemCord);
+        temp.SetTable_9(7, needItem[1].itemCord);
+        temp.createdItem = createdItem;
+        temp.createdItem.itemCount = 1;
+        tempList.Add(temp);
+        recipeList.Add(needItemCode, tempList);
+    }
+    
     #endregion
 }

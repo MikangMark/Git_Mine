@@ -26,10 +26,6 @@ public class Recipe : MonoBehaviour
         }
         createdItem = null;
     }
-    void Start()
-    {
-        
-    }
     public void SetTable_4(int _index, int _itemCode)
     {
         table_4[_index] = _itemCode;

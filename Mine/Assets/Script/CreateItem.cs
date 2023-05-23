@@ -13,18 +13,7 @@ public class CreateItem : MonoBehaviour
             {
                 temp = Instantiate(ItemManager.Instance.SearchObjByCode(_itemCode), InventoryManager.Instance.inventory[i].transform);
                 temp.GetComponent<Item>().itemCount = 1;
-                return;
-            }
-            else
-            {
-                if(InventoryManager.Instance.inventory[i].transform.GetChild(0).GetComponent<Item>().itemCord == _itemCode)
-                {
-                    if (_itemCode == 5|| _itemCode == 17 || _itemCode == 280 || _itemCode == 287 || _itemCode == 391)
-                    {
-                        InventoryManager.Instance.inventory[i].transform.GetChild(0).GetComponent<Item>().itemCount++;
-                        return;
-                    }
-                }
+                break;
             }
         }
     }

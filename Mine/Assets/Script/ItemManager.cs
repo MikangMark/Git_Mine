@@ -28,17 +28,6 @@ public class ItemManager : Singleton<ItemManager>
             itemDic.Add(itemList[i].name, itemList[i]);
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public Item SearchItemByCode(int _itemCode)
     {
         for(int i = 0; i < itemInfoList.Count; i++)
