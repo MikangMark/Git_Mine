@@ -21,7 +21,8 @@ public class ConbinationManager : Singleton<ConbinationManager>
     }
     void Start()
     {
-        RawWood();
+        Plank();
+        Stick();
         keys = recipeList.Keys.ToList();
     }
 
@@ -57,7 +58,7 @@ public class ConbinationManager : Singleton<ConbinationManager>
         return true;
     }
     #region 레시피(함수이름은 해당아이템으로만들수있는 레시피)
-    void RawWood()//나무판자(5)레시피 필요한아이템 원목(17)
+    void Plank()//나무판자(5)레시피 필요한아이템 원목(17)
     {
         List<Recipe> tempList = new List<Recipe>();
         List<Item> needItem = new List<Item>();
@@ -81,6 +82,58 @@ public class ConbinationManager : Singleton<ConbinationManager>
             tempList.Add(temp);
         }
         recipeList.Add(needItemCode, tempList);
+    }
+
+    void Stick()
+    {
+        List<Recipe> tempList = new List<Recipe>();
+        List<Item> needItem = new List<Item>();
+        List<int> needItemCode = new List<int>();
+        needItem.Add(Instantiate(ItemManager.Instance.SearchItemByCode(5)));
+        needItemCode.Add(5);
+        needItemCode.Add(5);
+        Item createdItem;
+        createdItem = Instantiate(ItemManager.Instance.SearchItemByCode(280));
+        
+        for (int i = 0; i < 6; i++)
+        {
+            Recipe temp = new Recipe();
+            temp.needItemList.Add(needItem[0]);
+            if (i < 2)
+            {
+                temp.SetTable_4(i, needItem[0].itemCord);
+                temp.SetTable_4(i + 2, needItem[0].itemCord);
+            }
+            temp.SetTable_9(i, needItem[0].itemCord);
+            temp.SetTable_9(i + 3, needItem[0].itemCord);
+            temp.createdItem = createdItem;
+            temp.createdItem.itemCount = 4;
+            tempList.Add(temp);
+        }
+        recipeList.Add(needItemCode, tempList);
+    }
+    void FishingRod()
+    {
+        List<Recipe> tempList = new List<Recipe>();
+        List<Item> needItem = new List<Item>();
+        List<int> needItemCode = new List<int>();
+        needItem.Add(Instantiate(ItemManager.Instance.SearchItemByCode(280)));
+        needItem.Add(Instantiate(ItemManager.Instance.SearchItemByCode(287)));
+        needItemCode.Add(280);
+        needItemCode.Add(280);
+        needItemCode.Add(280);
+        needItemCode.Add(287);
+        needItemCode.Add(287);
+        Item createdItem;
+        createdItem = Instantiate(ItemManager.Instance.SearchItemByCode(346));
+        Recipe temp = new Recipe();
+        temp.needItemList.Add(needItem[0]);
+        temp.needItemList.Add(needItem[1]);
+        temp.SetTable_9(2, needItem[0].itemCord);
+        temp.SetTable_9(4, needItem[0].itemCord);
+        temp.SetTable_9(6, needItem[0].itemCord);
+        temp.SetTable_9(5, needItem[1].itemCord);
+        temp.SetTable_9(8, needItem[1].itemCord);
     }
     #endregion
 }

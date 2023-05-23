@@ -9,7 +9,7 @@ public class MousePoint : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
     private Vector2 clickOffset;
-    private Vector3 savePos;
+    private Transform savePos;
 
     private void Start()
     {
@@ -23,7 +23,7 @@ public class MousePoint : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
     {
         // 마우스 클릭 이벤트가 발생한 위치를 UI 요소의 부모 객체의 좌표계로 변환합니다.
         RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform.parent.GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out Vector2 localMousePosition);
-        savePos = rectTransform.localPosition;
+        savePos = gameObject.transform.parent;
         // UI 요소의 위치와 마우스 클릭 이벤트가 발생한 위치 사이의 차이를 구합니다.
         clickOffset = (Vector2)rectTransform.localPosition - localMousePosition;
         canvasGroup.blocksRaycasts = false;
@@ -40,6 +40,7 @@ public class MousePoint : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        bool check = false;
         PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
         pointerEventData.position = Input.mousePosition;
         List<RaycastResult> results = new List<RaycastResult>();
@@ -48,11 +49,17 @@ public class MousePoint : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
 
         foreach (RaycastResult hit in results)
         {
-            if(hit.gameObject.tag.Equals("Box"))//레이캐스트의검출된 오브젝트의 태그 검사
+            if (hit.gameObject.tag.Equals("Box"))//레이캐스트의검출된 오브젝트의 태그 검사
             {
                 transform.parent = hit.gameObject.transform;
+                check = true;
             }
         }
-        rectTransform.localPosition = savePos;
+        if (!check)
+        {
+            gameObject.transform.parent = savePos;
+        }
+        
+        
     }
 }

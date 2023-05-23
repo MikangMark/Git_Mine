@@ -23,14 +23,18 @@ public class Item : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (itemCount > 1)
+        if (itemCord == 5 || itemCord == 17 || itemCord == 280 || itemCord == 287 || itemCord == 391)
         {
-            gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = itemCount.ToString();
-            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            if (itemCount > 1)
+            {
+                gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = itemCount.ToString();
+                gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            }
+            else
+            {
+                gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            }
         }
-        else
-        {
-            gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        }
+        
     }
 }

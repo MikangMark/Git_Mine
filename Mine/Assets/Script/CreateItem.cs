@@ -19,7 +19,7 @@ public class CreateItem : MonoBehaviour
             {
                 if(InventoryManager.Instance.inventory[i].transform.GetChild(0).GetComponent<Item>().itemCord == _itemCode)
                 {
-                    if (_itemCode == 5|| _itemCode == 17 || _itemCode == 280 || _itemCode == 287)
+                    if (_itemCode == 5|| _itemCode == 17 || _itemCode == 280 || _itemCode == 287 || _itemCode == 391)
                     {
                         InventoryManager.Instance.inventory[i].transform.GetChild(0).GetComponent<Item>().itemCount++;
                         return;
